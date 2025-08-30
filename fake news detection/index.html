@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fake News Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo">📰</div>
+        <div class="title-wrap">
+          <h1>Fake News Detector</h1>
+          <p class="muted">Paste a headline or short article and get an instant prediction.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="themeToggle" class="ghost" title="Toggle theme">🌗</button>
+        <a class="ghost" href="/health" target="_blank" rel="noopener">Status</a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Left: Input card -->
+      <section class="card">
+        <div class="card-head">
+          <h2>Analyze Text</h2>
+          <span id="charCount" class="chip">0 chars</span>
+        </div>
+
+        <label for="text" class="muted">Headline or Article</label>
+        <textarea id="text" rows="8" placeholder="Type or paste text here..."></textarea>
+
+        <div class="btn-row">
+          <div class="btn-left">
+            <button id="predictBtn" class="primary">Predict</button>
+            <button id="clearBtn" class="ghost">Clear</button>
+          </div>
+          <div class="btn-right">
+            <span class="muted small">Tip: Press Ctrl/⌘ + Enter</span>
+          </div>
+        </div>
+
+        <div id="result" class="result hidden">
+          <div class="result-row">
+            <span id="labelPill" class="pill">—</span>
+            <span id="confidenceText" class="muted">Confidence —</span>
+          </div>
+
+          <div class="bar">
+            <div id="barFill" class="bar-fill" style="width: 0%;"></div>
+          </div>
+
+          <div id="rawJson" class="raw-json"></div>
+        </div>
+      </section>
+
+      <!-- Right: Examples & notes -->
+      <aside class="card">
+        <h2>Quick Examples</h2>
+        <div class="examples">
+          <button class="example" data-text="Government announces new education policy">Education policy update</button>
+          <button class="example" data-text="Scientists discover water on Mars">Water on Mars discovery</button>
+          <button class="example" data-text="Aliens abducted the prime minister last night">Alien abduction claim</button>
+          <button class="example" data-text="Man claims eating chocolate cures all diseases">Chocolate cures all diseases</button>
+        </div>
+
+        <h3>Tips for best results</h3>
+        <ul class="tips">
+          <li>Use clear, complete sentences.</li>
+          <li>Include the headline + key sentence from the article body.</li>
+          <li>For Urdu or mixed language, the model still works—try shorter, cleaner text.</li>
+        </ul>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <p class="muted">
+        Powered by Flask + scikit-learn (TF-IDF + classic classifiers).
+        <span class="sep">•</span>
+        <span id="footerYear"></span>
+      </p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
